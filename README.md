@@ -1,4 +1,6 @@
-# KickerLeagueUi
+# Kicker League UI
+
+52N spare time project. UI for https://github.com/matthesrieke/kicker-league-rest
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
