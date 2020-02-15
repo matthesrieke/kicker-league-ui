@@ -32,5 +32,17 @@ export class NavigationBarComponent implements OnInit {
   isAuthenticated() {
     return this.auth.isAuthenticated();
   }
+
+  login() {
+
+  }
+
+  logout() {
+
+  }
+
+  goToProfile() {
+    
+  }
   
 }

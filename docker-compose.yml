@@ -1,0 +1,16 @@
+version: '3'
+services: 
+  kicker-ui:
+    build: 
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        - STARTUP_SCRIPT=./docker/scripts/startup.sh
+        - DEFAULT_SITE_CONF=./docker/default.conf
+    image: docker.52north.org/kicker/ui:latest
+    ports: 
+      - 8082:80
+    environment: 
+      - REST_BASE_URL=http://localhost:8080
+      - UN_BASE_HREF=/
+
