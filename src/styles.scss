@@ -1,1 +1,106 @@
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@import '~@angular/material/theming';
+@include mat-core();
+
+// generate with http://mcg.mbitson.com/#!?mcgpalette1=%235ac7e5
+$n52-primary-pal: (
+    50 : #ebf8fc,
+    100 : #ceeef7,
+    200 : #ade3f2,
+    300 : #8cd8ed,
+    400 : #73cfe9,
+    500 : #5ac7e5,
+    600 : #52c1e2,
+    700 : #48bade,
+    800 : #3fb3da,
+    900 : #2ea6d3,
+    A100 : #ffffff,
+    A200 : #e2f7ff,
+    A400 : #afe8ff,
+    A700 : #96e1ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+$n52-accent-pal: (
+    50 : #e0f6fc,
+    100 : #b3e9f6,
+    200 : #80daf1,
+    300 : #4dcbeb,
+    400 : #26c0e6,
+    500 : #00b5e2,
+    600 : #00aedf,
+    700 : #00a5da,
+    800 : #009dd6,
+    900 : #008dcf,
+    A100 : #f6fcff,
+    A200 : #c3eaff,
+    A400 : #90d7ff,
+    A700 : #77ceff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$n52-primary: mat-palette($n52-primary-pal);
+$n52-accent: mat-palette($n52-accent-pal);
+// The warn palette is optional (defaults to red).
+$n52-warn: mat-palette($mat-indigo);
+// Create the theme object (a Sass map containing all of the palettes).
+$n52-theme: mat-light-theme($n52-primary, $n52-accent, $n52-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($n52-theme);
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 /* You can add global styles to this file, and also import other style files */
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.full-width {
+    width: 100%;
+}

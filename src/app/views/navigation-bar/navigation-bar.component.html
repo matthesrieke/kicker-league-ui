@@ -1,0 +1,38 @@
+<mat-toolbar color="primary">
+
+    <mat-toolbar-row fxLayout="row">
+
+        <button mat-icon-button (click)="toggleSidenav.emit()" *ngIf="!onHandset">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <span> Kicker League </span>
+        <div fxLayout="row" fxFlex="1 1 100%">
+            <div fxFlex="1 1 100%">&nbsp;</div>
+            <div fxFlex>
+                <button mat-icon-button [matMenuTriggerFor]="auth">
+                    <mat-icon>account_box</mat-icon>
+                </button>
+            </div>
+            <div>
+                <mat-menu #auth="matMenu">
+                    <button mat-menu-item (click)="login()" *ngIf="!isAuthenticated()">
+                        <mat-icon>input</mat-icon>
+                        <span>Sign in</span>
+                    </button>
+                    <button mat-menu-item (click)="logout()" *ngIf="isAuthenticated()">
+                        <mat-icon>exit_to_app</mat-icon>
+                        <span>Sign out</span>
+                    </button>
+                    <button mat-menu-item (click)="goToProfile()" *ngIf="isAuthenticated()">
+                        <mat-icon>account_circle</mat-icon>
+                        <span>Show profile</span>
+                    </button>
+                </mat-menu>
+            </div>
+
+        </div>
+
+    </mat-toolbar-row>
+
+</mat-toolbar>

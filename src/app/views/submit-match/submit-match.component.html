@@ -1,0 +1,102 @@
+<div fxLayout="column">
+  <mat-toolbar>Submit Match</mat-toolbar>
+  <div class="submit-match-container" fxFlex fxLayout="column">
+    <!-- PLAYERS -->
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxFlexGrow>
+      <div fxFlex fxFlexGrow>
+        <form class="player-form">
+          <mat-form-field class="full-width">
+            <input type="text" placeholder="Pick 'Home' Player" aria-label="Home" matInput
+              [formControl]="homePlayerControl" [matAutocomplete]="autoHome">
+            <mat-autocomplete #autoHome="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptionsHome | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="versus">
+        <img src="./assets/versus.png">
+      </div>
+      <div fxFlex fxFlexGrow>
+        <form class="player-form">
+          <mat-form-field class="full-width">
+            <input type="text" placeholder="Pick 'Guest' Player" aria-label="Guest" matInput
+              [formControl]="guestPlayerControl" [matAutocomplete]="autoGuest">
+            <mat-autocomplete #autoGuest="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptionsGuest | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+
+    <mat-divider fxShow.gt-xs="false" fxShow="true"></mat-divider>
+
+    <!-- SCORE -->
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxFlexGrow>
+      <div fxFlex fxFlexGrow>
+        <form class="score-form">
+          <mat-form-field class="full-width">
+            <mat-label>Home Score</mat-label>
+            <input matInput type="number" name="homeScore" [(ngModel)]="homeScore" min="0" max="10">
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="score">
+        <img src="./assets/score.png">
+      </div>
+      <div fxFlex fxFlexGrow>
+        <form class="score-form">
+          <mat-form-field class="full-width">
+            <mat-label>Guest Score</mat-label>
+            <input matInput type="number" name="guestScore" [(ngModel)]="guestScore" min="0" max="10">
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+
+    <mat-divider fxShow.gt-xs="false" fxShow="true"></mat-divider>
+
+    <!-- META -->
+    <div fxFlex fxLayout="row" fxFlexGrow>
+      <div fxFlex fxFlexGrow>
+        <form class="meta-form">
+          <mat-form-field class="full-width">
+            <mat-label>Any comment?</mat-label>
+            <textarea matInput placeholder="Simon hat gekurbelt..." rows="5" name="comment" [(ngModel)]="comment"></textarea>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="score" fxShow.gt-xs="true" fxShow="false">
+        <img src="./assets/transparent.png">
+      </div>
+      <div fxFlex fxFlexGrow fxShow.gt-xs="true" fxShow="false">
+
+      </div>
+    </div>
+
+    <mat-divider fxShow.gt-xs="false" fxShow="true"></mat-divider>
+
+    <!-- SUBMIT -->
+    <div fxFlex fxLayout="row" fxFlexGrow>
+      <div fxFlex fxFlexGrow>
+
+      </div>
+      <div class="score">
+        <button mat-raised-button color="primary" *ngIf="!formReady() && !status" disabled="true">Submit Match!</button>
+        <button mat-raised-button color="primary" (click)="submitMatch()" *ngIf="formReady() && !status">Submit Match!</button>
+        <h4 *ngIf="status === 'submitting'">Submitting...</h4>
+        <h4 *ngIf="status === 'submitted'">Submitted!</h4>
+        <h4 mat-warn *ngIf="status === 'error'">Could not submit match...</h4>
+      </div>
+      <div fxFlex fxFlexGrow>
+
+      </div>
+    </div>
+
+  </div>
+</div>
