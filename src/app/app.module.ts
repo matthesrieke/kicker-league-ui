@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingPageComponent } from './views/landing-page/landing-page.component';
 
-import { MatSidenavModule, MatMenuModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatTableModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatDividerModule } from '@angular/material';
+import { MatSidenavModule, MatMenuModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatTableModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatDividerModule, MatTabsModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './views/nav/nav.component';
@@ -21,6 +21,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
+import { PlayerPartyPipe } from './views/matches/player-party.pipe';
+import { TwoVTwoMatchComponent } from './views/submit-match/two-v-two-match/two-v-two-match.component';
+import { OneVOneMatchComponent } from './views/submit-match/one-v-one-match/one-v-one-match.component';
 
 
 registerLocaleData(localeDe);
@@ -46,7 +49,10 @@ const appRoutes: Routes = [
     RankingsComponent,
     MatchesComponent,
     SubmitMatchComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PlayerPartyPipe,
+    TwoVTwoMatchComponent,
+    OneVOneMatchComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +77,8 @@ const appRoutes: Routes = [
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTabsModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "de-DE" }

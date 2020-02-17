@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { map, startWith, combineLatest } from 'rxjs/operators';
 import { Observable, forkJoin } from 'rxjs';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Match } from 'src/app/model/match';
@@ -14,16 +13,14 @@ import { Match } from 'src/app/model/match';
 })
 export class SubmitMatchComponent implements OnInit {
 
-  homePlayerControl = new FormControl();
-  guestPlayerControl = new FormControl();
-  options: string[] = [];
-  players: any;
-  filteredOptionsHome: Observable<string[]>;
-  filteredOptionsGuest: Observable<string[]>;
   comment: string;
   guestScore: number;
   homeScore: number;
   status: string;
+  players: any;
+  options: any;
+  homePlayers: any;
+  guestPlayers: any;
 
   constructor(private http: HttpClient, private settings: SettingsService) { }
 
@@ -32,51 +29,32 @@ export class SubmitMatchComponent implements OnInit {
   }
 
   resolvePlayers() {
-    this.http.get(this.settings.getSettings().restBaseUrl + '/players').subscribe((res: any) => {
+    this.http.get(this.settings.getSettings().restBaseUrl + '/players?size=1000').subscribe((res: any) => {
       this.players = res.data;
       this.options = res.data.map(p => p.nickName);
-
-      this.updateOptions();
     });
   }
 
-  updateOptions() {
-    this.filteredOptionsHome = this.homePlayerControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice()),
-      );
-
-    this.filteredOptionsGuest = this.guestPlayerControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
+  onHomePlayersChanged(ev: any) {
+    this.homePlayers = ev;
   }
 
-  private _filter(name: string): string[] {
-    const filterValue = name.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  onGuestPlayersChanged(ev: any) {
+    this.guestPlayers = ev;
   }
 
   formReady() {
-    return this.homeScore >= 0 && this.guestScore >= 0 && !(this.homeScore === 0 && this.guestScore === 0)
-      && this.homePlayerControl.value && this.guestPlayerControl.value && !(this.homePlayerControl.value === this.guestPlayerControl.value);
+    const ready = this.homeScore >= 0 && this.guestScore >= 0 && !(this.homeScore === 0 && this.guestScore === 0)
+      && this.homePlayers && this.guestPlayers;
+    return ready;
   }
 
   submitMatch() {
-    console.log('comment', this.comment, this.homeScore, this.guestScore);
 
     const m: Match = {
       dateTime: new Date(),
-      home: {
-        nickName: this.homePlayerControl.value
-      },
-      guest: {
-        nickName: this.guestPlayerControl.value
-      },
+      home: this.homePlayers.map(s => { return { nickName: s }; }),
+      guest: this.guestPlayers.map(s => { return { nickName: s }; }),
       score: {
         home: this.homeScore,
         guest: this.guestScore
@@ -86,13 +64,18 @@ export class SubmitMatchComponent implements OnInit {
 
     const obs: Observable<any>[] = [];
 
-    if (this.options.indexOf(m.home.nickName) < 0) {
-      obs.push(this.registerPlayer(m.home.nickName));
-    }
+    // check for not registered players
+    m.home.forEach(p => {
+      if (this.options.indexOf(p.nickName) < 0) {
+        obs.push(this.registerPlayer(p.nickName));
+      }
+    });
 
-    if (this.options.indexOf(m.guest.nickName) < 0) {
-      obs.push(this.registerPlayer(m.guest.nickName));
-    }
+    m.guest.forEach(p => {
+      if (this.options.indexOf(p.nickName) < 0) {
+        obs.push(this.registerPlayer(p.nickName));
+      }
+    });
 
     if (obs.length) {
       forkJoin(obs).subscribe(allDone => {
@@ -105,7 +88,7 @@ export class SubmitMatchComponent implements OnInit {
     } else {
       this.finalSubmit(m);
     }
-    
+
 
   }
 

@@ -1,0 +1,60 @@
+<div fxLayout="column">
+    <div>
+        <h3>2 versus 2</h3>
+    </div>
+
+    <!-- PLAYERS -->
+    <div fxFlex fxLayout="row" fxLayout.xs="column" fxFlexGrow>
+        <div fxFlex fxFlexGrow fxLayout="column">
+            <form class="player-form">
+                <mat-form-field class="full-width">
+                    <input type="text" placeholder="Pick 'Home' Player" aria-label="Home" matInput
+                        [formControl]="homePlayerControl" [matAutocomplete]="autoHome">
+                    <mat-autocomplete #autoHome="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptionsHome | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </form>
+            <form class="player-form">
+                <mat-form-field class="full-width">
+                    <input type="text" placeholder="Pick 'Home' Player 2" aria-label="Home" matInput
+                        [formControl]="homePlayer2Control" [matAutocomplete]="autoHome2">
+                    <mat-autocomplete #autoHome2="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptionsHome2 | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="versus" fxLayout>
+            <img src="./assets/versus.png">
+        </div>
+        <div fxFlex fxFlexGrow fxLayout="column">
+            <form class="player-form">
+                <mat-form-field class="full-width">
+                    <input type="text" placeholder="Pick 'Guest' Player" aria-label="Guest" matInput
+                        [formControl]="guestPlayerControl" [matAutocomplete]="autoGuest">
+                    <mat-autocomplete #autoGuest="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptionsGuest | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </form>
+            <form class="player-form">
+                <mat-form-field class="full-width">
+                    <input type="text" placeholder="Pick 'Guest' Player 2" aria-label="Guest" matInput
+                        [formControl]="guestPlayer2Control" [matAutocomplete]="autoGuest2">
+                    <mat-autocomplete #autoGuest2="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptionsGuest2 | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+</div>

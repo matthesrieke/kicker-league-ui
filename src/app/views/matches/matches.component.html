@@ -13,9 +13,9 @@
             <ng-container matColumnDef="match">
                 <th mat-header-cell *matHeaderCellDef> Match </th>
                 <td mat-cell *matCellDef="let element">
-                    <span [ngClass]="{'highlight' : element.home.winner}">{{element.home.nickName}}</span>
+                    <span [ngClass]="{'highlight' : element.home[0].winner}">{{element.home | playerParty}}</span>
                     <span> vs </span>
-                    <span [ngClass]="{'highlight' : element.guest.winner}">{{element.guest.nickName}}</span>
+                    <span [ngClass]="{'highlight' : element.guest[0].winner}">{{element.guest | playerParty}}</span>
                 </td>
             </ng-container>
 

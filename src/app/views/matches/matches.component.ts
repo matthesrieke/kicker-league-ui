@@ -22,8 +22,10 @@ export class MatchesComponent implements OnInit {
       .subscribe((res: PageableResponse<Match>) => {
 
         res.data.forEach(d => {
-          d.home.winner = d.score.home > d.score.guest;
-          d.guest.winner = !d.home.winner;
+          const homeWinner = d.score.home > d.score.guest;
+
+          d.home.forEach(p => p.winner = homeWinner);
+          d.guest.forEach(p => p.winner = !homeWinner);
         });
 
         this.dataSource = res.data;

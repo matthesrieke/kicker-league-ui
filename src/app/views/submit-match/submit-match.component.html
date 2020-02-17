@@ -1,38 +1,29 @@
 <div fxLayout="column">
   <mat-toolbar>Submit Match</mat-toolbar>
   <div class="submit-match-container" fxFlex fxLayout="column">
-    <!-- PLAYERS -->
-    <div fxFlex fxLayout="row" fxLayout.xs="column" fxFlexGrow>
-      <div fxFlex fxFlexGrow>
-        <form class="player-form">
-          <mat-form-field class="full-width">
-            <input type="text" placeholder="Pick 'Home' Player" aria-label="Home" matInput
-              [formControl]="homePlayerControl" [matAutocomplete]="autoHome">
-            <mat-autocomplete #autoHome="matAutocomplete">
-              <mat-option *ngFor="let option of filteredOptionsHome | async" [value]="option">
-                {{option}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-        </form>
-      </div>
-      <div class="versus">
-        <img src="./assets/versus.png">
-      </div>
-      <div fxFlex fxFlexGrow>
-        <form class="player-form">
-          <mat-form-field class="full-width">
-            <input type="text" placeholder="Pick 'Guest' Player" aria-label="Guest" matInput
-              [formControl]="guestPlayerControl" [matAutocomplete]="autoGuest">
-            <mat-autocomplete #autoGuest="matAutocomplete">
-              <mat-option *ngFor="let option of filteredOptionsGuest | async" [value]="option">
-                {{option}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-        </form>
-      </div>
-    </div>
+
+    <mat-tab-group mat-stretch-tabs>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>perm_identity</mat-icon>
+          <h3 class="xvx-label"> vs </h3>
+          <mat-icon>perm_identity</mat-icon>
+        </ng-template>
+        <app-one-v-one-match [players]="players" [options]="options"
+          (homePlayersSelected)="onHomePlayersChanged($event)" (guestPlayersSelected)="onGuestPlayersChanged($event)"
+          *ngIf="players && options"></app-one-v-one-match>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>supervisor_account</mat-icon>
+          <h3 class="xvx-label"> vs </h3>
+          <mat-icon>supervisor_account</mat-icon>
+        </ng-template>
+        <app-two-v-two-match [players]="players" [options]="options"
+          (homePlayersSelected)="onHomePlayersChanged($event)" (guestPlayersSelected)="onGuestPlayersChanged($event)"
+          *ngIf="players && options"></app-two-v-two-match>
+      </mat-tab>
+    </mat-tab-group>
 
     <mat-divider fxShow.gt-xs="false" fxShow="true"></mat-divider>
 
@@ -67,7 +58,8 @@
         <form class="meta-form">
           <mat-form-field class="full-width">
             <mat-label>Any comment?</mat-label>
-            <textarea matInput placeholder="Simon hat gekurbelt..." rows="5" name="comment" [(ngModel)]="comment"></textarea>
+            <textarea matInput placeholder="Simon hat gekurbelt..." rows="5" name="comment"
+              [(ngModel)]="comment"></textarea>
           </mat-form-field>
         </form>
       </div>
@@ -88,7 +80,8 @@
       </div>
       <div class="score">
         <button mat-raised-button color="primary" *ngIf="!formReady() && !status" disabled="true">Submit Match!</button>
-        <button mat-raised-button color="primary" (click)="submitMatch()" *ngIf="formReady() && !status">Submit Match!</button>
+        <button mat-raised-button color="primary" (click)="submitMatch()" *ngIf="formReady() && !status">Submit
+          Match!</button>
         <h4 *ngIf="status === 'submitting'">Submitting...</h4>
         <h4 *ngIf="status === 'submitted'">Submitted!</h4>
         <h4 mat-warn *ngIf="status === 'error'">Could not submit match...</h4>

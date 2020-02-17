@@ -1,7 +1,7 @@
 export interface Match {
     dateTime: Date;
-    home: Player;
-    guest: Player;
+    home: Player[];
+    guest: Player[];
     score: Score;
     comment: string;
 }
