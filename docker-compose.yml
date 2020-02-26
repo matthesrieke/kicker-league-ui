@@ -7,7 +7,7 @@ services:
       args:
         - STARTUP_SCRIPT=./docker/scripts/startup.sh
         - DEFAULT_SITE_CONF=./docker/default.conf
-    image: docker.52north.org/kicker/ui:latest
+    image: docker.io/matthesrieke/kicker-ui:latest
     ports: 
       - 8082:80
     environment: 
