@@ -15,7 +15,14 @@ export class BasicAuthInterceptor implements HttpInterceptor {
         if (currentUser && pw) {
             request = request.clone({
                 setHeaders: { 
-                    Authorization: `Basic ${window.btoa(currentUser + ':' + pw)}`
+                    'Authorization': `Basic ${window.btoa(currentUser + ':' + pw)}`,
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+        } else {
+            request = request.clone({
+                setHeaders: { 
+                    'X-Requested-With': 'XMLHttpRequest'
                 }
             });
         }
