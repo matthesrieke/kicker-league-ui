@@ -16,18 +16,16 @@
             </div>
             <div>
                 <mat-menu #auth="matMenu">
-                    <button mat-menu-item (click)="login()" *ngIf="!isAuthenticated()">
+                    <a mat-menu-item [routerLink]="['/auth']" *ngIf="!isAuthenticated()">
                         <mat-icon>input</mat-icon>
                         <span>Sign in</span>
-                    </button>
-                    <button mat-menu-item (click)="logout()" *ngIf="isAuthenticated()">
+                    </a>
+                    <a mat-menu-item [routerLink]="['/auth']" *ngIf="isAuthenticated()">
                         <mat-icon>exit_to_app</mat-icon>
-                        <span>Sign out</span>
-                    </button>
-                    <button mat-menu-item (click)="goToProfile()" *ngIf="isAuthenticated()">
-                        <mat-icon>account_circle</mat-icon>
-                        <span>Show profile</span>
-                    </button>
+                        <span>Sign out '</span>
+                        <span>{{username}}</span>
+                        <span>'</span>
+                    </a>
                 </mat-menu>
             </div>
 

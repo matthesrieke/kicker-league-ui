@@ -20,6 +20,7 @@ export class NavigationBarComponent implements OnInit {
   );
 
   onHandset: boolean;
+  username: string;
 
   constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService) { }
 
@@ -27,22 +28,18 @@ export class NavigationBarComponent implements OnInit {
     this.isHandset$.subscribe(obs => {
       this.onHandset = obs;
     });
+    this.auth.authenticatedStatus.subscribe(v => {
+      if (v) {
+        this.username = this.auth.user;
+      } else {
+        delete this.username;
+      }
+    });
   }
   
   isAuthenticated() {
     return this.auth.isAuthenticated();
   }
 
-  login() {
-
-  }
-
-  logout() {
-
-  }
-
-  goToProfile() {
-    
-  }
   
 }

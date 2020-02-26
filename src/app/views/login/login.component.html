@@ -1,0 +1,36 @@
+<div fxLayout="column">
+    <mat-toolbar *ngIf="!loggedIn">Login</mat-toolbar>
+
+    <div class="login-container" fxFlex fxLayout="column" *ngIf="!loggedIn">
+
+        <div fxFlex fxLayout="column" fxFlexGrow>
+            <div fxFlex fxFlexGrow>
+                <form class="player-form">
+                    <mat-form-field class="full-width">
+                        <input type="text" placeholder="username" aria-label="username" matInput
+                            [formControl]="usernameControl">
+                    </mat-form-field>
+                </form>
+            </div>
+            <div fxFlex fxFlexGrow>
+                <form class="player-form">
+                    <mat-form-field class="full-width">
+                        <input type="password" placeholder="password" aria-label="password" matInput
+                            [formControl]="passwordControl">
+                    </mat-form-field>
+                </form>
+            </div>
+            <div fxFlex fxLayout="row" fxLayout.xs="column" fxFlexGrow>
+                <button mat-raised-button (click)="doLogin()">Login!</button>
+            </div>
+        </div>
+    </div>
+
+    <mat-toolbar *ngIf="loggedIn">Logout</mat-toolbar>
+    <div class="login-container" fxFlex fxLayout="column" *ngIf="loggedIn">
+
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxFlexGrow>
+            <button mat-raised-button (click)="doLogout()">Logout!</button>
+        </div>
+    </div>
+</div>

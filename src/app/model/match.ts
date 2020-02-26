@@ -1,4 +1,5 @@
 export interface Match {
+    id?: string;
     dateTime: Date;
     home: Player[];
     guest: Player[];

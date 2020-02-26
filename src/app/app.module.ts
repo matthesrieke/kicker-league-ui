@@ -7,7 +7,7 @@ import { LandingPageComponent } from './views/landing-page/landing-page.componen
 
 import { MatSidenavModule, MatMenuModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatTableModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatDividerModule, MatTabsModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavComponent } from './views/nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -24,11 +24,15 @@ import localeDe from '@angular/common/locales/de';
 import { PlayerPartyPipe } from './views/matches/player-party.pipe';
 import { TwoVTwoMatchComponent } from './views/submit-match/two-v-two-match/two-v-two-match.component';
 import { OneVOneMatchComponent } from './views/submit-match/one-v-one-match/one-v-one-match.component';
+import { BasicAuthInterceptor } from './services/basic-auth-intercetor';
+import { LoginComponent } from './views/login/login.component';
+import { AuthService } from './services/auth.service';
 
 
 registerLocaleData(localeDe);
 
 const appRoutes: Routes = [
+  { path: 'auth', component: LoginComponent },
   { path: 'rankings', component: RankingsComponent },
   { path: 'matches',      component: MatchesComponent },
   { path: 'matches/:id',      component: MatchesComponent },
@@ -52,7 +56,8 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     PlayerPartyPipe,
     TwoVTwoMatchComponent,
-    OneVOneMatchComponent
+    OneVOneMatchComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +86,8 @@ const appRoutes: Routes = [
     MatTabsModule
   ],
   providers: [
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: "de-DE" }
   ],
   bootstrap: [AppComponent]
